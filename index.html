@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+
+<title>Kartini Memories</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+width:100%;
+height:100%;
+overflow:hidden;
+background:#000;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+position:fixed;
+inset:0;
+}
+
+/* ======================
+LOADING
+====================== */
+
+#loading{
+
+position:fixed;
+inset:0;
+
+background:#000;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+z-index:9999;
+
+}
+
+.heart{
+
+font-size:85px;
+
+color:#ff8ac7;
+
+text-shadow:
+0 0 20px #ff8ac7,
+0 0 50px #ff8ac7,
+0 0 80px #ff8ac7;
+
+animation:
+heartBeat 1.8s infinite;
+
+}
+
+.loading-text{
+
+margin-top:20px;
+
+font-size:12px;
+
+letter-spacing:8px;
+
+color:white;
+
+font-weight:300;
+
+}
+
+.bar{
+
+width:260px;
+height:3px;
+
+background:#222;
+
+margin-top:25px;
+
+border-radius:999px;
+
+overflow:hidden;
+
+}
+
+.fill{
+
+width:0%;
+height:100%;
+
+background:
+
+linear-gradient(
+90deg,
+#ff8ac7,
+#8fdcff
+);
+
+animation:
+loadBar 5s linear forwards;
+
+}
+
+@keyframes loadBar{
+
+100%{
+width:100%;
+}
+
+}
+
+@keyframes heartBeat{
+
+50%{
+transform:scale(1.12);
+}
+
+}
+
+/* ======================
+MAIN
+====================== */
+
+#main{
+
+position:relative;
+
+width:100%;
+height:100%;
+
+overflow:hidden;
+
+opacity:0;
+
+transition:2s;
+
+background:
+
+linear-gradient(
+135deg,
+#020202,
+#050814,
+#020202
+);
+
+}
+
+/* ======================
+NEON BACKGROUND
+====================== */
+
+.neon-pink{
+
+position:absolute;
+
+width:700px;
+height:700px;
+
+left:-250px;
+top:-150px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+circle,
+rgba(255,80,180,.22),
+transparent 70%
+);
+
+filter:blur(120px);
+
+animation:
+pinkMove 12s ease-in-out infinite;
+
+}
+
+.neon-blue{
+
+position:absolute;
+
+width:700px;
+height:700px;
+
+right:-250px;
+bottom:-200px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+circle,
+rgba(120,220,255,.22),
+transparent 70%
+);
+
+filter:blur(120px);
+
+animation:
+blueMove 15s ease-in-out infinite;
+
+}
+
+@keyframes pinkMove{
+
+0%,100%{
+transform:translate(0,0);
+}
+
+50%{
+transform:translate(60px,-40px);
+}
+
+}
+
+@keyframes blueMove{
+
+0%,100%{
+transform:translate(0,0);
+}
+
+50%{
+transform:translate(-60px,40px);
+}
+
+}
+
+/* ======================
+CENTER GLOW
+====================== */
+
+.glow{
+
+position:absolute;
+
+left:50%;
+top:50%;
+
+width:500px;
+height:500px;
+
+transform:
+translate(-50%,-50%);
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+circle,
+rgba(255,140,200,.18),
+rgba(120,220,255,.14),
+transparent 75%
+);
+
+filter:blur(70px);
+
+animation:
+glowPulse 8s ease-in-out infinite;
+
+}
+
+@keyframes glowPulse{
+
+0%,100%{
+
+transform:
+translate(-50%,-50%)
+scale(1);
+
+}
+
+50%{
+
+transform:
+translate(-50%,-50%)
+scale(1.08);
+
+}
+
+}
+
+/* ======================
+KARTINI
+====================== */
+
+.center-name{
+
+position:absolute;
+
+left:50%;
+top:50%;
+
+transform:
+translate(-50%,-50%);
+
+font-size:42px;
+
+font-weight:200;
+
+letter-spacing:10px;
+
+color:white;
+
+z-index:20;
+
+text-shadow:
+0 0 25px rgba(255,255,255,.3);
+
+}
+
+/* ======================
+FOTO
+====================== */
+
+.photo{
+
+position:absolute;
+
+border-radius:24px;
+
+overflow:hidden;
+
+opacity:0;
+
+border:
+1px solid rgba(255,255,255,.15);
+
+box-shadow:
+0 10px 35px rgba(0,0,0,.4);
+
+animation:
+photoFall linear forwards;
+
+}
+
+.photo img{
+
+width:100%;
+height:100%;
+
+display:block;
+
+object-fit:cover;
+
+}
+/* ======================
+ANIMASI FOTO
+====================== */
+
+@keyframes photoFall{
+
+0%{
+
+opacity:0;
+
+transform:
+translateY(-250px)
+rotate(-5deg)
+scale(.95);
+
+}
+
+8%{
+opacity:1;
+}
+
+92%{
+opacity:1;
+}
+
+100%{
+
+opacity:0;
+
+transform:
+translateY(130vh)
+translateX(
+calc(-15px + 30px * var(--rand))
+)
+rotate(5deg)
+scale(.95);
+
+}
+
+}
+
+/* ======================
+TEKS
+====================== */
+
+.word{
+
+position:absolute;
+
+white-space:nowrap;
+
+font-weight:300;
+
+opacity:0;
+
+pointer-events:none;
+
+max-width:80vw;
+
+animation:
+wordFall linear forwards,
+textColor 12s linear infinite;
+
+}
+
+/* TIDAK BOLEH KEPOTONG */
+
+.word.safe{
+left:50%;
+transform:translateX(-50%);
+}
+
+@keyframes wordFall{
+
+0%{
+
+opacity:0;
+
+transform:
+translateY(-120px);
+
+}
+
+10%{
+opacity:.9;
+}
+
+90%{
+opacity:.9;
+}
+
+100%{
+
+opacity:0;
+
+transform:
+translateY(120vh)
+translateX(
+calc(-15px + 30px * var(--rand))
+);
+
+}
+
+}
+
+/* ======================
+WARNA TEKS
+PINK -> BIRU
+====================== */
+
+@keyframes textColor{
+
+0%{
+color:#ff8ac7;
+}
+
+25%{
+color:#ffc0e3;
+}
+
+50%{
+color:#d9c8ff;
+}
+
+75%{
+color:#8fdcff;
+}
+
+100%{
+color:#ff8ac7;
+}
+
+}
+
+/* ======================
+OVERLAY
+====================== */
+
+.overlay{
+
+position:absolute;
+
+inset:0;
+
+background:
+
+radial-gradient(
+circle at center,
+transparent,
+rgba(0,0,0,.75)
+);
+
+pointer-events:none;
+
+z-index:5;
+
+}
+
+/* ======================
+VIGNETTE
+====================== */
+
+.vignette{
+
+position:absolute;
+
+inset:0;
+
+box-shadow:
+inset 0 0 120px rgba(0,0,0,.85);
+
+pointer-events:none;
+
+z-index:6;
+
+}
+
+/* ======================
+SHINE
+====================== */
+
+.shine{
+
+position:absolute;
+
+top:-50%;
+left:-50%;
+
+width:200%;
+height:200%;
+
+background:
+
+linear-gradient(
+45deg,
+transparent,
+rgba(255,255,255,.02),
+transparent
+);
+
+animation:
+shineMove 18s linear infinite;
+
+}
+
+@keyframes shineMove{
+
+0%{
+transform:translateX(-10%);
+}
+
+100%{
+transform:translateX(10%);
+}
+
+}
+
+/* ======================
+AUDIO
+====================== */
+
+audio{
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="loading">
+
+<div class="heart">❤</div>
+
+<div class="loading-text">
+LOADING MEMORIES
+</div>
+
+<div class="bar">
+<div class="fill"></div>
+</div>
+
+</div>
+
+<div id="main">
+
+<div class="neon-pink"></div>
+
+<div class="neon-blue"></div>
+
+<div class="glow"></div>
+
+<div class="shine"></div>
+
+<div class="center-name">
+KARTINI
+</div>
+
+<div class="overlay"></div>
+
+<div class="vignette"></div>
+
+<audio autoplay loop>
+<source src="kartini.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<script>
+
+/* ==========================
+LOADING
+========================== */
+
+const loading =
+document.getElementById("loading");
+
+const main =
+document.getElementById("main");
+
+setTimeout(()=>{
+
+loading.style.opacity="0";
+
+setTimeout(()=>{
+
+loading.remove();
+
+main.style.opacity="1";
+
+},1000);
+
+},5000);
+
+/* ==========================
+FOTO
+GANTI DENGAN FOTO KAMU
+========================== */
+
+const photos=[
+
+"images/foto1.jpg",
+"images/foto2.jpg",
+"images/foto3.jpg",
+"images/foto4.jpg",
+"images/foto5.jpg",
+"images/foto6.jpg",
+"images/foto7.jpg",
+"images/foto8.jpg",
+"images/foto9.jpg",
+"images/foto10.jpg"
+
+];
+
+/* ==========================
+TEKS
+========================== */
+
+const words=[
+
+"Kartini",
+"Beautiful",
+"Lovely",
+"Forever",
+"Always",
+"Thinking Of You",
+"Only You",
+"Smile",
+"Special",
+"Sweet Girl",
+"My Favorite",
+"Memories",
+"Stay",
+"Miss You",
+"Precious"
+
+];
+
+/* ==========================
+JALUR FOTO
+ANTI NUMPUK
+ANTI KEPOTONG
+========================== */
+
+const lanes = [
+15,
+35,
+55,
+75
+];
+
+let laneIndex = 0;
+
+/* ==========================
+CREATE FOTO
+========================== */
+
+function createPhoto(){
+
+const photo =
+document.createElement("div");
+
+photo.className="photo";
+
+/* ukuran aman */
+
+const size =
+110 + Math.random()*35;
+
+photo.style.width =
+size + "px";
+
+photo.style.height =
+(size*1.25) + "px";
+
+/* posisi aman */
+
+photo.style.left =
+lanes[laneIndex] + "%";
+
+laneIndex++;
+
+if(laneIndex >= lanes.length){
+
+laneIndex = 0;
+
+}
+
+photo.style.top = "-260px";
+
+photo.style.marginLeft =
+(-size/2) + "px";
+
+photo.style.setProperty(
+"--rand",
+Math.random()
+);
+
+/* animasi */
+
+photo.style.animationDuration =
+26 + Math.random()*5 + "s";
+
+const img =
+document.createElement("img");
+
+img.src =
+photos[
+Math.floor(
+Math.random()*photos.length
+)
+];
+
+photo.appendChild(img);
+
+main.appendChild(photo);
+
+/* HAPUS SAAT SUDAH
+   LEWAT BAWAH */
+
+setTimeout(()=>{
+
+photo.remove();
+
+},35000);
+
+}
+
+/* ==========================
+CREATE TEKS
+ANTI KEPOTONG
+========================== */
+
+function createWord(){
+
+const word =
+document.createElement("div");
+
+word.className =
+"word";
+
+word.innerText =
+words[
+Math.floor(
+Math.random()*words.length
+)
+];
+
+/* area aman */
+
+const safeX =
+10 + Math.random()*70;
+
+word.style.left =
+safeX + "%";
+
+word.style.top =
+"-100px";
+
+word.style.fontSize =
+14 + Math.random()*16 + "px";
+
+word.style.setProperty(
+"--rand",
+Math.random()
+);
+
+word.style.animationDuration =
+20 + Math.random()*6 + "s";
+
+main.appendChild(word);
+
+setTimeout(()=>{
+
+word.remove();
+
+},30000);
+
+}
+
+/* ==========================
+FOTO AWAL
+========================== */
+
+for(let i=0;i<4;i++){
+
+setTimeout(()=>{
+
+createPhoto();
+
+},i*1500);
+
+}
+
+/* ==========================
+TEKS AWAL
+========================== */
+
+for(let i=0;i<10;i++){
+
+setTimeout(()=>{
+
+createWord();
+
+},i*350);
+
+}
+
+/* ==========================
+LOOP FOTO
+TIDAK NUMPUK
+========================== */
+
+setInterval(()=>{
+
+createPhoto();
+
+},7000);
+
+/* ==========================
+LOOP TEKS
+========================== */
+
+setInterval(()=>{
+
+createWord();
+
+},1800);
+
+/* ==========================
+ANTI SCROLL
+========================== */
+
+document.addEventListener(
+"touchmove",
+e=>e.preventDefault(),
+{passive:false}
+);
+
+document.addEventListener(
+"gesturestart",
+e=>e.preventDefault()
+);
+
+</script>
+
+</body>
+</html>
